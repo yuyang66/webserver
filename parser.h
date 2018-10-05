@@ -11,19 +11,20 @@
 #include <memory>
 
 namespace yy_webserver {
-	class Parser {
+	class BaseParser {
 	public:
 		enum class outer_status { Error, Reading, ReadingWriting, Writing ,Finish };
 		virtual outer_status parser_some(const unsigned char * read_buffer, int read_length, unsigned char * write_buffer, 
 			int & write_length, int buffer_size) = 0;
+		virtual ~BaseParser() {};
 	};
 
 	namespace castango {
-		class Parser : public yy_webserver::Parser {
+		class Parser : public BaseParser {
 		private:
 			enum class inner_status {GET_METHOD, GET_URL, GET_ARGS_NUM, GET_FILE_NUM, GET_ARGS, GET_FILE_ARGS ,GET_FILE, RESPONSE};
 			inner_status status_ = inner_status::GET_METHOD;
-			Handler * handler_;
+			BaseHandler * handler_;
 			Request request_;
 			BaseResponse * response_ = nullptr;
 			FileReader file_reader_;
@@ -54,8 +55,8 @@ namespace yy_webserver {
 				auto split = find(next_string.begin(), next_string.end(), '=');
 				if(split == next_string.end())
 					throw Exception("no args");
-				copy(next_string.begin(), split, key.begin());
-				copy(split + 1, next_string.end(), value.begin());
+				key = next_string.substr(0, split - next_string.begin());
+				value = next_string.substr(split - next_string.begin() + 1);
 				return true;
 			}
 
@@ -124,7 +125,7 @@ namespace yy_webserver {
 					throw outer_status::Error;
 				}
 
-				if (request_.get_method != Request::method::POSTFILE) {
+				if (request_.get_method() != Request::method::POSTFILE) {
 					request_.set_file_num(0);
 					status_ = inner_status::GET_ARGS;	
 				}
@@ -157,7 +158,7 @@ namespace yy_webserver {
 			}
 
 			void parser_get_args() {
-				if (request_.get_args().size() >= request_.get_args_num()) {
+				if (request_.get_args().size() >= (unsigned int)request_.get_args_num()) {
 					status_ = inner_status::GET_FILE_ARGS;
 					return;
 				}
@@ -183,14 +184,16 @@ namespace yy_webserver {
 			}
 
 			void parser_get_file_args() {
-				if (request_.get_files().size() >= request_.get_file_num()) {
+				if (request_.get_files().size() >= (unsigned int)request_.get_file_num()) {
 					try {
 						(*handler_)(request_, &response_);
 						status_ = inner_status::RESPONSE;
+						return;
 					}
 					catch (FileReader& file_reader) {
 						file_reader_ = file_reader;
 						status_ = inner_status::GET_FILE;
+						return;
 					}
 					catch (...) {
 						throw outer_status::Error;
@@ -218,9 +221,9 @@ namespace yy_webserver {
 			}
 
 			void parser_get_file(int buffer_size) {
-				unsigned char * file_read_buffer = new (unsigned char)(buffer_size);
-				unique_ptr<unsigned char[]> u_ptr_file_read_buffer(file_read_buffer);
-				int read_size = min(buffer_size, buffer.size());
+				unsigned char * file_read_buffer = new unsigned char[buffer_size];
+				std::unique_ptr<unsigned char[]> u_ptr_file_read_buffer(file_read_buffer);
+				int read_size = min((unsigned int)buffer_size, buffer.size());
 				for (auto i = 0; i < read_size; i++) {
 					file_read_buffer[i] = buffer.front();
 					buffer.pop_front();
@@ -241,7 +244,6 @@ namespace yy_webserver {
 					throw outer_status::Error;
 				}
 
-				
 				if (buffer.size() == 0) 
 					throw outer_status::Reading;
 
@@ -265,6 +267,10 @@ namespace yy_webserver {
 
 
 		public:
+			Parser(BaseHandler* handler) : handler_(handler) {};
+
+
+
 			virtual outer_status parser_some(const unsigned char * read_buffer, int read_length, unsigned char * write_buffer, 
 				int & write_length, int buffer_size) noexcept{
 				for (int i = 0; i < read_length; i++) {
@@ -293,7 +299,7 @@ namespace yy_webserver {
 				}
 			}
 
-			~Parser() {
+			virtual ~Parser() {
 				if (status_ == inner_status::GET_FILE) {
 					try {
 						file_reader_.error();

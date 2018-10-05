@@ -5,8 +5,8 @@ namespace yy_webserver {
 	class AutoLock {
 	private:
 		Lock* lock_;
-		AutoLock(const AutoLock & other) {}
-		AutoLock&  operator = (const AutoLock & other){}
+		AutoLock(const AutoLock & other) = delete;
+		AutoLock&  operator = (const AutoLock & other) = delete;
 
 	public:
 		explicit AutoLock(Lock* lock) {

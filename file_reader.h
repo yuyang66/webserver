@@ -9,8 +9,12 @@ namespace yy_webserver {
 			void (*error_func_)();
 
 		public:
+			
+
+			FileReader() {};
+
 			FileReader(bool(*readsome_func)(unsigned char * buffer, int length), BaseResponse* (*success_func)(), void(*error_func)()) :
-				readsome_func_(readsome_func), success_func_(success_func_), error_func_(error_func) {}
+				readsome_func_(readsome_func), success_func_(success_func), error_func_(error_func) {}
 
 			bool readsome(unsigned char * buffer, int length) {
 				return readsome_func_(buffer, length);
@@ -21,7 +25,7 @@ namespace yy_webserver {
 			}
 
 			void error() {
-				error();
+				error_func_();
 			}
 		};
 	}

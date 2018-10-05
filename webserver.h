@@ -61,14 +61,14 @@ namespace yy_webserver {
 			std::unique_ptr<SocketConnect> & u_ptr_socket_connect)
 		{
 			
-			std::unique_ptr<Parser> u_ptr_parser(protocol_handler_.new_parser());
+			std::unique_ptr<BaseParser> u_ptr_parser(protocol_handler.new_parser());
 			
 			unsigned char * read_buffer = new  unsigned char[buffer_size];
 			unsigned char * write_buffer = new  unsigned char[buffer_size];
 			int write_bytes;
 			int read_bytes;
 
-			Parser::outer_status res;
+			BaseParser::outer_status res;
 
 			try {
 				read_bytes = u_ptr_socket_connect->recv_bytes(read_buffer, buffer_size);
@@ -76,17 +76,16 @@ namespace yy_webserver {
 				while (true) {
 					res = u_ptr_parser->parser_some( read_buffer, read_bytes, write_buffer, write_bytes, buffer_size);
 					read_bytes = 0;
-					if (res == Parser::outer_status::Error or res == Parser::outer_status::Finish)
+					if (res == BaseParser::outer_status::Error or res == BaseParser::outer_status::Finish)
 						break;
-					if (res == Parser::outer_status::Writing or res == Parser::outer_status::ReadingWriting) {
+					if (res == BaseParser::outer_status::Writing or res == BaseParser::outer_status::ReadingWriting) {
 						std::unique_lock < std::mutex > lck(mutex_lock);
 						for(int i = 0; i < write_bytes; i++)
 							response.push(write_buffer[i]);
 						cond.notify_all();
 					}
-					if (res == Parser::outer_status::Reading or res == Parser::outer_status::ReadingWriting) 
+					if (res == BaseParser::outer_status::Reading or res == BaseParser::outer_status::ReadingWriting) 
 						read_bytes = u_ptr_socket_connect->recv_bytes(read_buffer, buffer_size);
-					
 				}
 			}
 			catch (Exception& e) {
@@ -122,7 +121,7 @@ namespace yy_webserver {
 
 
 	public:
-		TProtocolHandler protocol_handler_;
+		TProtocolHandler protocol_handler;
 
 		explicit Server(int port = 8080, int addr = 0) : socket_(port, addr) {
 			socket_.socket_listen();

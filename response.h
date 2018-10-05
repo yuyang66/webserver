@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <deque>
-#include "Exception.h";
+#include "Exception.h"
 
 namespace yy_webserver {
 	namespace castango {
@@ -14,12 +14,13 @@ namespace yy_webserver {
 			// 返回写入数据的字节数
 			virtual int write_buffer(unsigned char * buffer, int buffer_size) = 0;
 			virtual bool is_finish() = 0;
+			virtual ~BaseResponse() {};
 		};
 
 		
 		template<typename T>
-		void write_string(const string & s, T t) {
-			copy(s.begin(), s.end(), t.end());
+		void write_string(const string & s, T & t) {
+			t.insert(t.end(), s.begin(), s.end());
 			t.push_back('\0');
 		}
 
@@ -58,7 +59,7 @@ namespace yy_webserver {
 				if (file_data_.eof())
 					finish_ = true;
 
-				return file_data_.gcount() + i;
+				return int(file_data_.gcount()) + i;
 			}
 
 			virtual bool is_finish() { return finish_; }
