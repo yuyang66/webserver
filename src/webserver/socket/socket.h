@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "exception.h"
-#include "settings.h"
+#include "../utils/exception.h"
+#include "../settings.h"
 
 #include <WinSock2.h>
 #include <iostream>

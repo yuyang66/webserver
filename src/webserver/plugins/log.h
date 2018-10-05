@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "exception.h"
-#include "settings.h"
-#include "auto_lock.h"
+#include "../utils/exception.h"
+#include "../settings.h"
+#include "../utils/auto_lock.h"
 
 #include <string>
 #include <fstream>
@@ -84,7 +84,6 @@ namespace yy_webserver {
 
 		virtual void abstract_symbol() {};
 	};
-
 }
 
 

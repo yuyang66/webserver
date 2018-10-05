@@ -4,9 +4,9 @@
 #include <sstream>
 #include <map>
 #include "file_reader.h"
-#include "middleware.h"
-#include "plugin.h"
-#include "exception.h"
+#include "middleware/middleware.h"
+#include "../plugins/plugin.h"
+#include "../utils/exception.h"
 #include "url.h"
 
 

@@ -1,9 +1,13 @@
-#include "pch.h"
-#include "handler.h"
-#include "response.h"
+
+#include "webserver/castango/handler.h"
+#include "webserver/castango/response.h"
 #include <sstream>
 #include <iostream>
-#include "log.h"
+#include "webserver/plugins/log.h"
+#include "webserver/castango/middleware/middleware.h"
+#include "url.h"
+#include "middleware.h"
+#include "plugin.h"
 
 using yy_webserver::castango::Request;
 using yy_webserver::BasePluginManager;
@@ -35,14 +39,17 @@ void error() {
 
 
 void AB(const Request& req, BasePluginManager* plugin_manager, BaseMiddleWareManager* middleware_manager) {
-	extern char log1_dir[];
-	extern char log2_dir[];
-	extern char log3_dir[];
-	extern char plugin1_name[];
-	extern char plugin2_name[];
-	extern char plugin3_name[];
 
-	auto log = dynamic_cast<DailyLog<log1_dir, plugin1_name>*>( plugin_manager->get_plugin(plugin1_name));
+
+	auto log = dynamic_cast<my_log_plugin*>(plugin_manager->get_plugin(log_plugin_name));
+	AuthMiddleWare* auth = dynamic_cast<AuthMiddleWare*>(middleware_manager->get_middleware(auth_middleware_name));
+
+	int user_id = auth->get_auth_id();
+	if (user_id != -1) {
+		BaseHandler::send_response(new Response(string("is login: user_id = " + std::to_string(user_id))));
+	}
+
+
 	log->debug("aabbc");
 
 

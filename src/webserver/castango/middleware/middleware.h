@@ -3,9 +3,9 @@
 
 #include <map>
 #include <string>
-#include "exception.h"
-#include "plugin.h"
-#include "request.h"
+#include "../../utils/exception.h"
+#include "../../plugins/plugin.h"
+#include "../request.h"
 #include <deque>
 
 namespace yy_webserver {
@@ -17,7 +17,7 @@ namespace yy_webserver {
 		public:
 			string name_;
 			virtual ~BaseMiddleWare() {};
-			virtual void run(const Request& reqest, BasePluginManager* plugin_manager) = 0;
+			virtual void run(const Request& request, BasePluginManager* plugin_manager) = 0;
 		};
 
 		class BaseMiddleWareManager {
@@ -28,7 +28,9 @@ namespace yy_webserver {
 			std::deque<BaseMiddleWare *> order_middlewares_;
 		public:
 			BaseMiddleWareManager() {};
-			BaseMiddleWare* get_middleware(const string name) {
+			BaseMiddleWare* get_middleware(const string& name) {
+				if (middlewares_.count(name) == 0)
+					throw Exception("middleware not exist");
 				return middlewares_[name];
 			}
 			const std::deque<BaseMiddleWare *>& get_middlewares() const {

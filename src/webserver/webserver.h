@@ -1,13 +1,13 @@
 #pragma once
-#include "socket.h"
+#include "socket/socket.h"
 
 #include <windows.h>
 #include <memory.h>
-#include "parser.h"
+#include "castango/parser.h"
 #include <queue>
 #include <mutex>
 #include <condition_variable>
-#include "auto_lock.h"
+#include "utils/auto_lock.h"
 #include <iostream>
 #include <thread>
 

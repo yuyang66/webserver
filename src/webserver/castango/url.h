@@ -2,11 +2,11 @@
 #include <unordered_map>
 #include <string>
 #include "request.h"
-#include "middleware.h"
-#include "plugin.h"
+#include "middleware/middleware.h"
+#include "../plugins/plugin.h"
 #include <deque>
 #include <regex>
-#include "exception.h"
+#include "../utils/exception.h"
 #include <functional>
 
 namespace yy_webserver {

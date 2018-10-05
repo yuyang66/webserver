@@ -2,7 +2,7 @@
 
 #include <map>
 #include <string>
-#include "exception.h"
+#include "../utils/exception.h"
 
 namespace yy_webserver {
 	using std::string;
@@ -22,6 +22,8 @@ namespace yy_webserver {
 	public:
 		BasePluginManager() {}
 		BasePlugin* get_plugin(const string name) {
+			if (plugins_.count(name) == 0)
+				throw Exception("plugin not exist");
 			return plugins_[name];
 		}
 		virtual ~BasePluginManager() {};
