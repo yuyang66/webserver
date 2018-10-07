@@ -54,7 +54,7 @@
     <ClCompile Include="src\webserver\socket\socket.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="C:\Users\xuyi\source\repos\StaticLib1\Debug\sqlite3.lib" />
+    <Library Include="src\webserver\extern\sqlite3x64.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -137,7 +137,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>

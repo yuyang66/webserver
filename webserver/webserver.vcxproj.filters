@@ -129,7 +129,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="C:\Users\xuyi\source\repos\StaticLib1\Debug\sqlite3.lib">
+    <Library Include="src\webserver\extern\sqlite3x64.lib">
       <Filter>webserver\extern</Filter>
     </Library>
   </ItemGroup>

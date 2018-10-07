@@ -10,7 +10,7 @@
 #include <time.h>
 #include "plugin.h"
 
-#pragma comment(lib, "sqlite3.lib")
+#pragma comment(lib, "sqlite3x64.lib")
 
 #include "../extern/sqlite3.h"
 
