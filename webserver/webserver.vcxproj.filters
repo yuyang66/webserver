@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="webserver">
+      <UniqueIdentifier>{d5f5b41d-e56c-4bbf-93ed-c41b7ba8d5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\castango">
+      <UniqueIdentifier>{d626eb16-ec0a-49d0-bc61-302c54e0ddc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\castango\middleware">
+      <UniqueIdentifier>{a270248e-8f16-4bc9-a7b4-09cc6527b370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\plugins">
+      <UniqueIdentifier>{37cf586b-8b19-4968-b74e-8afb0bce962b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\utils">
+      <UniqueIdentifier>{750f2c36-9aea-4a66-a706-d374beb39906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\socket">
+      <UniqueIdentifier>{5fc6a958-6eb0-4d1d-9587-4f0403bfbf19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webserver\extern">
+      <UniqueIdentifier>{73975c94-f569-41d9-9e60-a9d5b0fb9e43}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="webserver.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\webserver\settings.h">
+      <Filter>webserver</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\webserver.h">
+      <Filter>webserver</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\file_reader.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\handler.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\parser.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\protocol_handler.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\request.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\response.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\url.h">
+      <Filter>webserver\castango</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\castango\middleware\middleware.h">
+      <Filter>webserver\castango\middleware</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\socket\socket.h">
+      <Filter>webserver\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\utils\auto_lock.h">
+      <Filter>webserver\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\utils\exception.h">
+      <Filter>webserver\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\plugins\log.h">
+      <Filter>webserver\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\plugins\plugin.h">
+      <Filter>webserver\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\plugins\db.h">
+      <Filter>webserver\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver\extern\sqlite3.h">
+      <Filter>webserver\extern</Filter>
+    </ClInclude>
+    <ClInclude Include="src\webserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\url.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\middleware.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\webserver\socket\socket.cpp">
+      <Filter>webserver\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\const.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\webserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\url.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controller.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="C:\Users\xuyi\source\repos\StaticLib1\Debug\sqlite3.lib">
+      <Filter>webserver\extern</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
